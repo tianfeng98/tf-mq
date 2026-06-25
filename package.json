@@ -1,0 +1,20 @@
+{
+  "name": "tf-mq",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@bull-board/api": "^8.0.1",
+    "@bull-board/bun": "^8.0.1",
+    "bullmq": "^5.79.1"
+  }
+}
