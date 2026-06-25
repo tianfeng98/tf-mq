@@ -1,11 +1,17 @@
 import { createBunRedisClient, type BunRedisRawClient } from "bullmq";
 import { RedisClient } from "bun";
 
-const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = Bun.env;
+const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_USERNAME } = Bun.env;
 
-export const redisClient = new RedisClient(
-  `redis://admin:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}`,
-);
+const urlObj = new URL(`redis://${REDIS_HOST}:${REDIS_PORT}`);
+if (REDIS_USERNAME) {
+  urlObj.username = REDIS_USERNAME;
+}
+if (REDIS_PASSWORD) {
+  urlObj.password = REDIS_PASSWORD;
+}
+
+export const redisClient = new RedisClient(urlObj.toString());
 export const bullMQConnection = createBunRedisClient(
   redisClient as BunRedisRawClient,
 );
